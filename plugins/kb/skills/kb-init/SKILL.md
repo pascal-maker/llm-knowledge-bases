@@ -9,7 +9,37 @@ One-time (or re-runnable) setup that bootstraps a knowledge base project as an O
 
 ## Prerequisites
 
-Obsidian must be installed. Recommended plugins: **Web Clipper**, **Marp Slides**, **Dataview**.
+Obsidian must be installed.
+
+## Plugin Setup
+
+After confirming the vault path, run the bundled setup script via Bash tool:
+
+```bash
+# Interactive — asks user about each optional plugin
+bash plugins/kb/setup.sh /path/to/vault
+
+# Install everything
+bash plugins/kb/setup.sh /path/to/vault --all
+
+# Install specific plugins only
+bash plugins/kb/setup.sh /path/to/vault --only dataview,obsidian-git
+```
+
+**Required plugins** (always installed):
+- **Dataview** — query wiki articles like a database
+- **Obsidian Git** — auto-backup vault to git
+
+**Optional plugins** (user chooses interactively):
+- **Kanban** — track wiki tasks on boards
+- **Outliner** — better list editing for article drafts
+- **Tag Wrangler** — rename and merge tags across the wiki
+- **Local Images Plus** — download and store remote images locally
+
+**Browser extension** (printed as manual step):
+- **Web Clipper** — clip web articles into `raw/`
+
+The script is idempotent — safe to re-run. If Obsidian is open, tell the user to restart it.
 
 ## Flow
 
