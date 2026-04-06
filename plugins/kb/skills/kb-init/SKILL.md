@@ -90,6 +90,27 @@ Create: `raw/articles/`, `raw/papers/`, `raw/repos/`, `raw/notes/`, `raw/images/
 
 Tell user what to do next: add sources, compile, and list available workflows (`compile`, `query`, `lint`, `evolve`).
 
+Also share these Obsidian tips from the gist:
+
+**Image downloads:** In Obsidian Settings → Files and links, set "Attachment folder path" to `raw/assets/`. Then in Settings → Hotkeys, search for "Download" and bind "Download attachments for current file" to a hotkey (e.g. Ctrl+Shift+D). After clipping an article, hit the hotkey and all images download locally — the LLM can then view them directly rather than relying on URLs that may break.
+
+**Graph view:** Obsidian's graph view is the best way to see the shape of the wiki — which pages are hubs, which are orphans, what clusters are forming.
+
+**qmd (for large wikis):** Once the wiki grows beyond ~100 articles, [qmd](https://github.com/tobi/qmd) is a local BM25/vector search engine for markdown with LLM re-ranking and an MCP server. The `kb` skill will use it automatically if installed.
+
+### 9. Schema Co-evolution Reminder
+
+The `CLAUDE.md` written at init is a starting point, not a final document. Tell the user:
+
+**"As your wiki grows, evolve `CLAUDE.md` together with me. When you notice a pattern — a new article type that keeps appearing, a convention that's working well, a workflow you want to standardize — tell me and I'll update `CLAUDE.md` to capture it. The schema should reflect how your specific wiki actually works, not just the defaults."**
+
+Common things that evolve over time:
+- New article types specific to your domain
+- Preferred section structure for your most common article types
+- Source types you've added that need their own ingestion notes
+- Naming conventions that have emerged organically
+- Queries you run often that could be standardized as workflows
+
 ## Common Mistakes
 
 - Do not overwrite an existing `kb.yaml` without confirming with the user first.

@@ -121,6 +121,18 @@ Present three options:
 
 Run the appropriate pipeline. For Standard and Deep, clearly mark which information came from the wiki and which came from external sources.
 
+### Optional: qmd Search (large wikis)
+
+At small scale the index file is enough. Once the wiki grows beyond ~100 articles, consider using **[qmd](https://github.com/tobi/qmd)** — a local BM25/vector search engine for markdown files with LLM re-ranking, all on-device. It has both a CLI (shell out via Bash) and an MCP server (native tool use).
+
+If qmd is installed, prefer it over reading `_index.md` for Quick queries:
+
+```bash
+qmd search "your query" --dir wiki/
+```
+
+If qmd is not installed and the wiki is large, mention it to the user as an option to improve query performance.
+
 ### Step 3: Render Output
 
 Format the answer according to `kb.yaml` output preferences (markdown, Marp, matplotlib, etc.) and save to `output/`.
@@ -187,7 +199,7 @@ Save to `output/lint-YYYY-MM-DD.md`. Group issues by severity, include suggested
 
 ## Workflow 4: Evolve
 
-**Trigger:** "evolve the wiki", "suggest improvements", or "what's missing".
+**Trigger:** "evolve the wiki", "suggest improvements", "what's missing", or "update the schema".
 
 ### Process
 
@@ -200,6 +212,19 @@ Save to `output/lint-YYYY-MM-DD.md`. Group issues by severity, include suggested
 3. Opus collates, deduplicates, and ranks suggestions by value
 4. Present as a numbered list with brief rationale for each
 5. User picks items -> Claude executes via Compile, Query, or web search as appropriate
+
+### Schema Co-evolution
+
+Every evolve pass should also inspect `CLAUDE.md` and ask: **does the schema still reflect how this wiki actually works?**
+
+Look for drift between the schema and reality:
+- Article types that appear frequently but aren't defined in `CLAUDE.md`
+- Naming conventions that have emerged organically but aren't documented
+- Workflows the user runs often that could be standardized
+- Section structures that have settled into a consistent pattern across articles
+- Source types being ingested that have no ingestion notes in the schema
+
+If drift is found, propose specific `CLAUDE.md` updates and apply them with user approval. The schema should always reflect the current wiki, not the wiki at init time.
 
 ## Common Mistakes
 
